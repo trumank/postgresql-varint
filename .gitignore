@@ -1,3 +1,4 @@
 /.fslckout
 *.o
 *.so
+*.bc
