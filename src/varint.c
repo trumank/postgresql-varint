@@ -195,11 +195,11 @@ varint_to_uint32(const char* buf, const size_t buflen, uint32_t* out, size_t* co
   uint32_t result;
   int i;
 
-  if (buflen <  1) goto err; b = *(ptr++); result  = (b & 0x7F);       if (!(b & 0x80)) goto done;
-  if (buflen <  2) goto err; b = *(ptr++); result |= (b & 0x7F) <<  7; if (!(b & 0x80)) goto done;
-  if (buflen <  3) goto err; b = *(ptr++); result |= (b & 0x7F) << 14; if (!(b & 0x80)) goto done;
-  if (buflen <  4) goto err; b = *(ptr++); result |= (b & 0x7F) << 21; if (!(b & 0x80)) goto done;
-  if (buflen <  5) goto err; b = *(ptr++); result |= (b & 0x7F) << 28; if (!(b & 0x80)) goto done;
+  if (buflen <  1) { goto err; } b = *(ptr++); result  = (b & 0x7F);       if (!(b & 0x80)) goto done;
+  if (buflen <  2) { goto err; } b = *(ptr++); result |= (b & 0x7F) <<  7; if (!(b & 0x80)) goto done;
+  if (buflen <  3) { goto err; } b = *(ptr++); result |= (b & 0x7F) << 14; if (!(b & 0x80)) goto done;
+  if (buflen <  4) { goto err; } b = *(ptr++); result |= (b & 0x7F) << 21; if (!(b & 0x80)) goto done;
+  if (buflen <  5) { goto err; } b = *(ptr++); result |= (b & 0x7F) << 28; if (!(b & 0x80)) goto done;
 
   // If the input is larger than 32 bits, we still need to read it all
   // and discard the high-order bits.
@@ -228,16 +228,16 @@ varint_to_uint64(const char* buf, const size_t buflen, uint64_t* out, size_t* co
    * performace on 32-bit processors. */
   uint32_t part0 = 0, part1 = 0, part2 = 0;
 
-  if (buflen <  1) goto err; b = *(ptr++); part0  = (b & 0x7F);       if (!(b & 0x80)) goto done;
-  if (buflen <  2) goto err; b = *(ptr++); part0 |= (b & 0x7F) <<  7; if (!(b & 0x80)) goto done;
-  if (buflen <  3) goto err; b = *(ptr++); part0 |= (b & 0x7F) << 14; if (!(b & 0x80)) goto done;
-  if (buflen <  4) goto err; b = *(ptr++); part0 |= (b & 0x7F) << 21; if (!(b & 0x80)) goto done;
-  if (buflen <  5) goto err; b = *(ptr++); part1  = (b & 0x7F);       if (!(b & 0x80)) goto done;
-  if (buflen <  6) goto err; b = *(ptr++); part1 |= (b & 0x7F) <<  7; if (!(b & 0x80)) goto done;
-  if (buflen <  7) goto err; b = *(ptr++); part1 |= (b & 0x7F) << 14; if (!(b & 0x80)) goto done;
-  if (buflen <  8) goto err; b = *(ptr++); part1 |= (b & 0x7F) << 21; if (!(b & 0x80)) goto done;
-  if (buflen <  9) goto err; b = *(ptr++); part2  = (b & 0x7F);       if (!(b & 0x80)) goto done;
-  if (buflen < 10) goto err; b = *(ptr++); part2 |= (b & 0x7F) <<  7; if (!(b & 0x80)) goto done;
+  if (buflen <  1) { goto err; } b = *(ptr++); part0  = (b & 0x7F);       if (!(b & 0x80)) goto done;
+  if (buflen <  2) { goto err; } b = *(ptr++); part0 |= (b & 0x7F) <<  7; if (!(b & 0x80)) goto done;
+  if (buflen <  3) { goto err; } b = *(ptr++); part0 |= (b & 0x7F) << 14; if (!(b & 0x80)) goto done;
+  if (buflen <  4) { goto err; } b = *(ptr++); part0 |= (b & 0x7F) << 21; if (!(b & 0x80)) goto done;
+  if (buflen <  5) { goto err; } b = *(ptr++); part1  = (b & 0x7F);       if (!(b & 0x80)) goto done;
+  if (buflen <  6) { goto err; } b = *(ptr++); part1 |= (b & 0x7F) <<  7; if (!(b & 0x80)) goto done;
+  if (buflen <  7) { goto err; } b = *(ptr++); part1 |= (b & 0x7F) << 14; if (!(b & 0x80)) goto done;
+  if (buflen <  8) { goto err; } b = *(ptr++); part1 |= (b & 0x7F) << 21; if (!(b & 0x80)) goto done;
+  if (buflen <  9) { goto err; } b = *(ptr++); part2  = (b & 0x7F);       if (!(b & 0x80)) goto done;
+  if (buflen < 10) { goto err; } b = *(ptr++); part2 |= (b & 0x7F) <<  7; if (!(b & 0x80)) goto done;
 
   /* Buffer over run: the max size of a varint encoded uint64_t is 10 bytes. */
   goto err;
