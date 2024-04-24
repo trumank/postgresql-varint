@@ -14,7 +14,7 @@
 #include "fmgr.h"
 #include "libpq/pqformat.h" /* needed for send/recv functions */
 #include "utils/builtins.h" /* needed for pg_lltoa() */
-#include "utils/int8.h"
+#include "varatt.h"
 
 #include "varint.h"
 
@@ -148,9 +148,7 @@ PG_FUNCTION_INFO_V1(varint64_in);
 Datum
 varint64_in(PG_FUNCTION_ARGS) {
   char *str = PG_GETARG_CSTRING(0);
-  int64 num;
-
-  (void)scanint8(str, false, &num);
+  int64 num = pg_strtoint64(str);
   return int64_to_varlena_varint64(num);
 }
 
@@ -209,9 +207,7 @@ PG_FUNCTION_INFO_V1(varuint64_in);
 Datum
 varuint64_in(PG_FUNCTION_ARGS) {
   char *str = PG_GETARG_CSTRING(0);
-  int64 num;
-
-  (void)scanint8(str, false, &num);
+  int64 num = pg_strtoint64(str);
   /* Storing in to a varuint64, not varint64 */
   if (num < 0) {
     ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),

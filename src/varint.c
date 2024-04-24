@@ -25,7 +25,7 @@ static inline int32_t zigzag_decode32(const uint32_t n) {
 
 
 
-static inline inline uint32_t zigzag_encode32(const int32_t n) {
+static inline uint32_t zigzag_encode32(const int32_t n) {
   // Note:  the right-shift must be arithmetic
   return (n << 1) ^ (n >> 31);
 }
